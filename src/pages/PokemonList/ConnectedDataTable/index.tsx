@@ -17,7 +17,7 @@ const COLUMNS = [
 
 const ConnectedDataTable = () => {
   const navigate = useNavigate();
-  const { pokemons, setPokemonUrl } = usePokemons();
+  const { pokemons, setOffset, offset } = usePokemons();
 
   if (!pokemons.length) {
     return (
@@ -27,14 +27,13 @@ const ConnectedDataTable = () => {
     )
   }
 
-  function goToDetail(url: string) {
-    setPokemonUrl(url);
-    navigate(`/pokemon-detail/`);
+  function goToDetail(name: string) {
+    navigate(`/pokemon-detail/${name}`);
   }
 
   const pokemonsWithCta = pokemons.map(pokemon => ({
     ...pokemon,
-    cta: <Button handleClick={() => goToDetail(pokemon.url)}>Go to Detail</Button>
+    cta: <Button handleClick={() => goToDetail(pokemon.name)}>Go to Detail</Button>
   }))
 
   return (
@@ -42,6 +41,9 @@ const ConnectedDataTable = () => {
       //@ts-ignore
       columns={COLUMNS}
       data={pokemonsWithCta}
+      offset={offset}
+      previousPage={() => setOffset(currentValue => currentValue - 10)}
+      nextPage={() => setOffset(currentValue => currentValue + 10)}
     />
   )
 };
