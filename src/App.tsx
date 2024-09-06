@@ -1,11 +1,12 @@
-
 import './App.css';
+import Test from './components/test';
+import { PokemonProvider } from './context/pokemon';
 
 function App() {
   return (
-    <div className="App">
-      Hola
-    </div>
+    <PokemonProvider>
+      <Test />
+    </PokemonProvider>
   );
 }
 
