@@ -3,7 +3,8 @@ export type Pokemon = {
   url: string;
   height: number;
   weight: number;
-  base_experience: number;
+  baseExperience: number;
   abilities: string;
   types: string;
+  image?: string;
 };

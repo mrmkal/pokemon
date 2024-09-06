@@ -1,20 +1,23 @@
 import { ReactNode } from 'react';
+
 import Button from '../Button';
 
-type Column<T> = {
+type Column<C> = {
   header: string;
-  accessor: keyof T;
+  accessor: keyof C;
 };
 
-type DataTableProps<T> = {
-  data: T[];
-  columns: Column<T>[];
+type DataTableProps<C, D> = {
+  data: D[];
+  columns: Column<C>[];
   offset: number;
-  nextPage: () => void;
-  previousPage: () => void;
+  nextPage?: () => void;
+  previousPage?: () => void;
 };
 
-export const DataTable = <T extends {}>({ data, columns, offset, nextPage, previousPage }: DataTableProps<T>) => {
+export const DataTable = <C, D extends C>({ data, columns, offset, nextPage, previousPage }: DataTableProps<C, D>) => {
+  const pagination = nextPage && previousPage;
+
   return (
     <>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -50,19 +53,22 @@ export const DataTable = <T extends {}>({ data, columns, offset, nextPage, previ
           </tbody>
         </table>
       </div>
-      <div className="flex justify-between mt-4">
-        <Button
-          disabled={offset === 0}
-          handleClick={previousPage}
-        >
-          Previous Page
-        </Button>
-        <Button
-          handleClick={nextPage}
-        >
-          Next Page
-        </Button>
-      </div>
+      {
+        pagination &&
+        <div className="flex justify-between mt-4">
+          <Button
+            disabled={offset === 0}
+            handleClick={previousPage}
+          >
+            Previous Page
+          </Button>
+          <Button
+            handleClick={nextPage}
+          >
+            Next Page
+          </Button>
+        </div>
+      }
     </>
   );
 };

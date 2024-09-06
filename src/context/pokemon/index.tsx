@@ -51,17 +51,17 @@ const PokemonProvider = ({ children }: IPokemonProviderProps) => {
       });
       const pokemon = await response.json();
 
-      const abilitiesResponse = await Promise.all(pokemon.abilities.map(async (ability: any) => {
-        const abilityResponse = await fetch(ability.ability.url);
-        const abil = await abilityResponse.json();
-        const name = abil.names.find((name: any) => name.language.name === 'en').name;
+      const abilitiesResponse = await Promise.all(pokemon.abilities.map(async (ability: { ability: { url: string } }) => {
+        const response = await fetch(ability.ability.url);
+        const abilities = await response.json();
+        const name = abilities.names.find((name: { language: { name: string } }) => name.language.name === 'en').name;
         return name;
       }));
 
-      const typesResponse = await Promise.all(pokemon.types.map(async (type: any) => {
-        const abilityResponse = await fetch(type.type.url);
-        const abil = await abilityResponse.json();
-        const name = abil.names.find((name: any) => name.language.name === 'en').name;
+      const typesResponse = await Promise.all(pokemon.types.map(async (type: { type: { url: string } }) => {
+        const response = await fetch(type.type.url);
+        const types = await response.json();
+        const name = types.names.find((name: { language: { name: string } }) => name.language.name === 'en').name;
         return name;
       }));
 
@@ -70,12 +70,13 @@ const PokemonProvider = ({ children }: IPokemonProviderProps) => {
         url: pokemon.url,
         height: pokemon.height,
         weight: pokemon.weight,
-        base_experience: pokemon.base_experience,
+        baseExperience: pokemon.base_experience,
         abilities: abilitiesResponse.join(', '),
-        types: typesResponse.join(', ')
+        types: typesResponse.join(', '),
+        image: pokemon.sprites.other['official-artwork'].front_default
       });
     } catch (error) {
-      console.error("Error fetching Pokemons:", error);
+      throw console.error("Error fetching Pokemons:", error);
     } finally {
       setLoading(false);
     }
@@ -86,7 +87,7 @@ const PokemonProvider = ({ children }: IPokemonProviderProps) => {
   }, [getPokemons]);
 
   useEffect(() => {
-    if (!pokemonName?.length) return;
+    if (!pokemonName) return;
 
     getPokemonDetail();
   }, [getPokemonDetail, pokemonName])

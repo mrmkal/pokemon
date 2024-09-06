@@ -13,7 +13,7 @@ const COLUMNS = [
     header: '',
     accessor: 'cta'
   }
-]
+];
 
 const ConnectedDataTable = () => {
   const navigate = useNavigate();
@@ -38,7 +38,6 @@ const ConnectedDataTable = () => {
 
   return (
     <DataTable
-      //@ts-ignore
       columns={COLUMNS}
       data={pokemonsWithCta}
       offset={offset}
