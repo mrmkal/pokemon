@@ -1,4 +1,5 @@
 import usePokemons from '../../hooks/usePokemons';
+import Loading from '../../components/Loading';
 
 import ConnectedDataTable from './ConnectedDataTable';
 
@@ -7,9 +8,7 @@ const PokemonList = () => {
 
   if (loading) {
     return (
-      <div>
-        Loading...
-      </div>
+      <Loading />
     )
   }
 

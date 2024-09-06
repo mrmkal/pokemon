@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import usePokemons from '../../hooks/usePokemons';
 import Button from '../../components/Button';
+import Loading from '../../components/Loading';
 
 const PokemonDetail = () => {
   const { name } = useParams();
@@ -17,9 +18,7 @@ const PokemonDetail = () => {
 
   if (loading) {
     return (
-      <div>
-        Loading...
-      </div>
+      <Loading />
     )
   }
 

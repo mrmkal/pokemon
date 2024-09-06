@@ -11,7 +11,7 @@ interface IPokemonProviderProps {
 
 export interface IPokemonContextValues {
   loading: boolean;
-  pokemons: Pick<Pokemon, 'name' | 'url'>[] | [];
+  pokemons: Pick<Pokemon, 'name'>[] | [];
   offset: number;
   setOffset: React.Dispatch<React.SetStateAction<number>>;
   setPokemonName: React.Dispatch<React.SetStateAction<string | undefined>>;
@@ -67,7 +67,6 @@ const PokemonProvider = ({ children }: IPokemonProviderProps) => {
 
       setPokemon({
         name: pokemon.name,
-        url: pokemon.url,
         height: pokemon.height,
         weight: pokemon.weight,
         baseExperience: pokemon.base_experience,
