@@ -1,22 +1,19 @@
 import { createContext, ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 
+import { Pokemon } from '../../types/pokemon';
+
 const LIMIT = 10;
 
 interface IPokemonProviderProps {
   children: ReactNode;
 }
 
-interface IPokemons {
-  name: string;
-  url: string;
-}
-
 export interface IPokemonContextValues {
   loading: boolean;
-  pokemons: IPokemons | [];
+  pokemons: Pokemon[] | [];
   setOffset: (value: number) => void;
   setPokemonUrl: (url: string) => void;
-  selectedPokemon: IPokemons | {};
+  selectedPokemon: Pokemon | {};
 }
 
 const PokemonContext = createContext<IPokemonContextValues | null>(null);
@@ -24,12 +21,13 @@ const PokemonContext = createContext<IPokemonContextValues | null>(null);
 const PokemonProvider = ({ children }: IPokemonProviderProps) => {
   const [loading, setLoading] = useState(true);
   const [offset, setOffset] = useState(0);
-  const [pokemons, setPokemons] = useState<IPokemons | []>([]);
+  const [pokemons, setPokemons] = useState<Pokemon[] | []>([]);
   const [selectedPokemon, setSelectedPokemon] = useState({});
   const [pokemonUrl, setPokemonUrl] = useState('');
 
   const getPokemons = useCallback(async () => {
     try {
+      setLoading(true);
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${LIMIT}&offset=${offset}`, {
         method: 'GET'
       });
@@ -44,11 +42,12 @@ const PokemonProvider = ({ children }: IPokemonProviderProps) => {
 
   const getPokemonDetail = useCallback(async () => {
     try {
+      setLoading(true);
       const response = await fetch(pokemonUrl, {
         method: 'GET'
       });
-      const list = await response.json();
-      setSelectedPokemon(list.results);
+      const pokemon = await response.json();
+      setSelectedPokemon(pokemon);
     } catch (error) {
       console.error("Error fetching Pokemons:", error);
     } finally {
@@ -57,11 +56,14 @@ const PokemonProvider = ({ children }: IPokemonProviderProps) => {
   }, [pokemonUrl]);
 
   useEffect(() => {
-    if (pokemonUrl) {
-      getPokemonDetail();
-    }
     getPokemons();
-  }, [getPokemons, getPokemonDetail, pokemonUrl]);
+  }, [getPokemons]);
+
+  useEffect(() => {
+    if (!pokemonUrl.length) return;
+
+    getPokemonDetail();
+  }, [getPokemonDetail, pokemonUrl])
 
   const contextValue = useMemo(() => ({
     loading,
