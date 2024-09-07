@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { Pokemon } from '../../types/pokemon';
+import { AbilitiesTypesResponse, Pokemon, PokemonResponse } from '../../types/pokemon';
 
 const LIMIT = 10;
 
@@ -49,19 +49,19 @@ const PokemonProvider = ({ children }: IPokemonProviderProps) => {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`, {
         method: 'GET'
       });
-      const pokemon = await response.json();
+      const pokemon: PokemonResponse = await response.json();
 
-      const abilitiesResponse = await Promise.all(pokemon.abilities.map(async (ability: { ability: { url: string } }) => {
+      const abilitiesResponse = await Promise.all(pokemon.abilities.map(async ability => {
         const response = await fetch(ability.ability.url);
-        const abilities = await response.json();
-        const name = abilities.names.find((name: { language: { name: string } }) => name.language.name === 'en').name;
+        const abilities: AbilitiesTypesResponse = await response.json();
+        const name = abilities.names.find(name => name.language.name === 'en')?.name;
         return name;
       }));
 
-      const typesResponse = await Promise.all(pokemon.types.map(async (type: { type: { url: string } }) => {
+      const typesResponse = await Promise.all(pokemon.types.map(async type => {
         const response = await fetch(type.type.url);
-        const types = await response.json();
-        const name = types.names.find((name: { language: { name: string } }) => name.language.name === 'en').name;
+        const types: AbilitiesTypesResponse = await response.json();
+        const name = types.names.find(name => name.language.name === 'en')?.name;
         return name;
       }));
 

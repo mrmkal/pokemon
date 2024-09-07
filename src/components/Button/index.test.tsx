@@ -1,4 +1,5 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import Button from './'; 
 
@@ -14,7 +15,7 @@ describe('Button Component', () => {
   it('calls handleClick when clicked', () => {
     render(<Button handleClick={handleClick}>Click Me</Button>);
 
-    fireEvent.click(screen.getByRole('button'));
+    userEvent.click(screen.getByRole('button'));
 
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
@@ -31,7 +32,7 @@ describe('Button Component', () => {
   it('does not call handleClick when disabled', () => {
     render(<Button handleClick={handleClick} disabled>Click Me</Button>);
 
-    fireEvent.click(screen.getByRole('button'));
+    userEvent.click(screen.getByRole('button'));
 
     expect(handleClick).not.toHaveBeenCalled();
   });
