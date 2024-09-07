@@ -37,7 +37,7 @@ const PokemonProvider = ({ children }: IPokemonProviderProps) => {
       const list = await response.json();
       setPokemons(list.results);
     } catch (error) {
-      console.error("Error fetching Pokemons:", error);
+      console.error('Error fetching Pokemons:', error);
     } finally {
       setLoading(false);
     }
@@ -75,7 +75,7 @@ const PokemonProvider = ({ children }: IPokemonProviderProps) => {
         image: pokemon.sprites.other['official-artwork'].front_default
       });
     } catch (error) {
-      throw console.error("Error fetching Pokemons:", error);
+      console.error('Error fetching Pokemons:', error);
     } finally {
       setLoading(false);
     }
