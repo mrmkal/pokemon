@@ -16,6 +16,7 @@ export interface IPokemonContextValues {
   setOffset: React.Dispatch<React.SetStateAction<number>>;
   setPokemonName: React.Dispatch<React.SetStateAction<string | undefined>>;
   pokemon: Pokemon | null;
+  setPokemon: React.Dispatch<React.SetStateAction<Pokemon | null>>;
 }
 
 const PokemonContext = createContext<IPokemonContextValues | null>(null);
@@ -97,7 +98,8 @@ const PokemonProvider = ({ children }: IPokemonProviderProps) => {
     offset,
     setOffset,
     setPokemonName,
-    pokemon
+    pokemon,
+    setPokemon
   }), [loading, pokemons, pokemon, offset]);
 
   return (

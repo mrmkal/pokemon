@@ -34,7 +34,8 @@ const mockValues = {
   setPokemonName: jest.fn(),
   pokemons: [],
   offset: 0,
-  setOffset: jest.fn()
+  setOffset: jest.fn(),
+  setPokemon: jest.fn(),
 }
 
 describe('PokemonDetail Component', () => {

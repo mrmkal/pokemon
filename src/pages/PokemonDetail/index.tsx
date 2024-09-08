@@ -8,7 +8,7 @@ import Loading from '../../components/Loading';
 const PokemonDetail = () => {
   const { name } = useParams();
   const navigate = useNavigate();
-  const { loading, pokemon, setPokemonName } = usePokemons();
+  const { loading, pokemon, setPokemonName, setPokemon } = usePokemons();
 
   useEffect(() => {
     if (!name) return;
@@ -16,16 +16,21 @@ const PokemonDetail = () => {
     setPokemonName(name)
   }, [name, setPokemonName]);
 
-  if (loading) {
+  if (loading || !pokemon) {
     return (
       <Loading />
     )
   }
 
+  function goBack() {
+    setPokemon(null);
+    navigate('/');
+  }
+
   return (
     <div className="container mx-auto my-8">
       <Button
-        handleClick={() => navigate('/')}
+        handleClick={goBack}
       >
         Go Back
       </Button>

@@ -27,6 +27,7 @@ describe('PokemonList Component', () => {
       setOffset: jest.fn(),
       setPokemonName: jest.fn(),
       pokemon: null,
+      setPokemon: jest.fn(),
     });
 
     render(<PokemonList />);
@@ -42,6 +43,7 @@ describe('PokemonList Component', () => {
       setOffset: jest.fn(),
       setPokemonName: jest.fn(),
       pokemon: null,
+      setPokemon: jest.fn(),
     });
 
     render(<PokemonList />);

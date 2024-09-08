@@ -12,6 +12,7 @@ describe('usePokemons Hook', () => {
       setOffset: jest.fn(),
       setPokemonName: jest.fn(),
       pokemon: null,
+      setPokemon: jest.fn(),
     };
 
     const wrapper = ({ children }: { children: React.ReactNode }) => (
