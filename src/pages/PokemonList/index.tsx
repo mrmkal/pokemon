@@ -15,7 +15,7 @@ const PokemonList = () => {
   return (
     <div className="container mx-auto my-4">
       <h1 className="my-12 text-center text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
-        Pokémon List
+        Let’s meet Pokemons!
       </h1>
       <DataTableConnected />
     </div>

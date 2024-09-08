@@ -48,6 +48,6 @@ describe('PokemonList Component', () => {
 
     render(<PokemonList />);
 
-    expect(screen.getByText('Pokémon List')).toBeInTheDocument();
+    expect(screen.getByText('Let’s meet Pokemons!')).toBeInTheDocument();
   });
 });
