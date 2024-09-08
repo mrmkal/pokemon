@@ -10,7 +10,7 @@ jest.mock('../../hooks/usePokemons', () => ({
 }));
 
 jest.mock('../../components/Loading', () => () => <div>Loading...</div>);
-jest.mock('./ConnectedDataTable', () => () => <div>ConnectedDataTable Mock</div>);
+jest.mock('./DataTableConnected', () => () => <div>DataTableConnected Mock</div>);
 
 const mockUsePokemons = usePokemons as jest.MockedFunction<typeof usePokemons>;
 

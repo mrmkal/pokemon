@@ -15,7 +15,7 @@ const COLUMNS = [
   }
 ];
 
-const ConnectedDataTable = () => {
+const DataTableConnected = () => {
   const navigate = useNavigate();
   const { pokemons, setOffset, offset } = usePokemons();
 
@@ -47,4 +47,4 @@ const ConnectedDataTable = () => {
   )
 };
 
-export default ConnectedDataTable;
+export default DataTableConnected;

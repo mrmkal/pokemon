@@ -4,10 +4,6 @@ import { PokemonContext } from '../../context/pokemon';
 import usePokemons from './';
 
 describe('usePokemons Hook', () => {
-  it.skip('should throw an error when context is not wrapped in PokemonProvider', () => {
-    expect(renderHook(() => usePokemons())).toThrow('Missing PokemonContext Provider');
-  });
-
   it('should return the context value when wrapped with PokemonProvider', () => {
     const mockContextValue = {
       loading: false,
